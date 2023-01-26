@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="projekt.projekt.Controllers.SignupController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="251.0" style="-fx-background-color: #702963;">
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Library d.o.o." textFill="#f2e6e6">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="400.0" prefWidth="356.0">
+         <children>
+            <Button fx:id="btnSignUp" layoutX="104.0" layoutY="336.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="137.0" style="-fx-background-color: #702963;" onAction="#signUpMember" text="Sign Up" textFill="#ede1e1">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="16.0" />
+               </font>
+            </Button>
+            <TextField fx:id="tfUsername" layoutX="52.0" layoutY="69.0" prefHeight="35.0" prefWidth="242.0" promptText="Username">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="tfPassword" layoutX="52.0" layoutY="136.0" prefHeight="35.0" prefWidth="242.0" promptText="Password">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="19.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="tfEmail" layoutX="52.0" layoutY="200.0" prefHeight="35.0" prefWidth="242.0" promptText="Email">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="tfContact" layoutX="52.0" layoutY="264.0" prefHeight="35.0" prefWidth="242.0" promptText="Contct Number">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
