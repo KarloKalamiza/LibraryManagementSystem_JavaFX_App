@@ -2,8 +2,10 @@ module projekt.projekt {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires mssql.jdbc;
     requires java.naming;
+    requires com.microsoft.sqlserver.jdbc;
+    requires java.rmi;
+    exports projekt.projekt.rmiserver;
 
     exports projekt.projekt;
     exports projekt.projekt.Controllers;

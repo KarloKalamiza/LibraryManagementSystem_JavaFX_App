@@ -1,16 +1,16 @@
 package projekt.projekt.Data.SQL;
 
-
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import javax.sql.DataSource;
 
 public class DataSourceSingleton {
+    //server name = DESKTOP-7G8UM5O\SQLEXPRESS
     private static final String SERVER_NAME = "localhost";
     private static final String DATABASE_NAME = "JavaFXLibraryApp";
     private static final String USER = "sas";
     private static final String PASSWORD = "SQL";
 
-    public DataSourceSingleton() {
+    private DataSourceSingleton() {
     }
 
     private static DataSource instance;

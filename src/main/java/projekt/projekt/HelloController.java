@@ -4,15 +4,15 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import projekt.projekt.ApplicationData.ApplicationMetaData;
-import projekt.projekt.ApplicationData.ClientData;
 import projekt.projekt.Constants.Constants;
+import projekt.projekt.Controllers.MainScreenUserController;
 import projekt.projekt.Data.SQL.SqlRepository;
 import projekt.projekt.Data.models.User;
 import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.Utils.ScreenUtils;
-import projekt.projekt.thread.ClientThread;
+import projekt.projekt.clientModels.ClientModel;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -33,12 +33,15 @@ public class HelloController {
     private PasswordField tfPassword;
 
     public static final String HOST = "localhost";
-    public static final int PORT = 2000;
+    public static final int PORT = 59001;
 
-    public void signUp() throws Exception{
+    public static String playerUsername = null;
+
+    public void signUp() throws Exception {
         ScreenUtils.setNewSceneToStage("Utils/sign-up.fxml", Constants.APPLICATION_NAME);
     }
-    public void login() throws Exception{
+
+    public void login() throws Exception {
 
         final String username = tfUsername.getText().trim();
         final String password = tfPassword.getText().trim();
@@ -64,38 +67,56 @@ public class HelloController {
                 e.printStackTrace();
             }
         }
-/*
-        try (Socket clientSocket = new Socket(HOST, PORT)){
-            System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" +clientSocket.getPort());
+
+        playerUsername = username;
+
+        try (Socket clientSocket = new Socket(HOST, PORT)) {
+            System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
             System.out.println("Player 1 thread is starting");
 
             ExecutorService executor = Executors.newSingleThreadExecutor();
-            executor.execute(new ClientThread(new ApplicationMetaData()));
+            //executor.execute(new ClientThread(new ClientModel()));
 
             System.out.println("Player 1 thread started");
 
             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-            oos.writeObject(new ClientData(clientSocket.getLocalPort(),
+            oos.writeObject(new ClientModel(clientSocket.getLocalPort(),
                     clientSocket.getLocalAddress().getHostName(),
-                    tfUsername.getText(),
-                    tfPassword.getText()));
+                    tfUsername.getText()));
 
             System.out.println("PlayerData Object sent to server");
 
-            ApplicationMetaData currentApplicationMetaData = (ApplicationMetaData) ois.readObject();
+            ClientModel currentApplicationMetaData = (ClientModel) ois.readObject();
 
-            System.out.println("Player ONE port:: " + currentApplicationMetaData.getClientOneData().getPort());
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Player ONE port:: " + currentApplicationMetaData.getPort());
+
+            while (true) {
+                System.out.println("Waiting for data...");
+                if (ois.readObject() != null) {
+                    System.out.println("Data available!");
+                    String returnMessage = (String) ois.readObject();
+                    System.out.println(returnMessage);
+
+                    if (returnMessage.equals("Refresh")){
+                        //MainScreenUserController.refreshTable();
+                        System.out.println("Ispis");
+                    }
+                }
+                if (MainScreenUserController.isLoaned == true){
+                    oos.writeObject("Loan");
+                    MainScreenUserController.isLoaned = false;
+                }
+            }
+
+            } catch(IOException | ClassNotFoundException e){
+                e.printStackTrace();
+            }
         }
 
- */
+        private void ClearTextFields () {
+            tfPassword.clear();
+            tfUsername.clear();
+        }
     }
-
-    private void ClearTextFields() {
-        tfPassword.clear();
-        tfUsername.clear();
-    }
-}

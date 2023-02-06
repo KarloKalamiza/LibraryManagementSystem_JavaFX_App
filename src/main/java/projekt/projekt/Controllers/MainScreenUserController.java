@@ -14,9 +14,16 @@ import projekt.projekt.Data.SQL.SqlRepository;
 import projekt.projekt.Data.models.Book;
 import projekt.projekt.Data.models.Loan;
 import projekt.projekt.HelloApplication;
+import projekt.projekt.HelloController;
 import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
+import projekt.projekt.rmiserver.ChatService;
+
 import java.io.IOException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,6 +93,19 @@ public class MainScreenUserController {
     @FXML
     private TableColumn<Book, Book> tcReturnButton;
 
+    //MESSAGE TABS
+    @FXML
+    private Tab messagesTab;
+    @FXML
+    private TextArea messageTextArea;
+    @FXML
+    private TextField messagesTextField;
+    @FXML
+    private Button sendMessageButton;
+
+    private ChatService stub;
+
+    public static boolean isLoaned = false;
 
     public void initialize() {
         SqlRepository sqlRepository = new SqlRepository();
@@ -94,6 +114,43 @@ public class MainScreenUserController {
         showAllBooks(sqlRepository);
         showMyBorrowedBooks(sqlRepository);
         showMostBorrowedBooks(sqlRepository);
+
+        try {
+            //Registry registry = LocateRegistry.getRegistry();
+            // the very same thing
+            Registry registry = LocateRegistry.getRegistry("localhost", 1099);
+            new Thread(() -> refreshMessage()).start();
+            stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
+
+
+
+        } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void refreshMessage(){
+        while (true){
+            try {
+                Thread.sleep(1000);
+                messageTextArea.clear();
+
+                fillTextAreaWithMessages();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void fillTextAreaWithMessages() {
+        try {
+            StringBuilder allMessagesBuilder = new StringBuilder();
+            stub.receiveAllMessages().forEach(m -> allMessagesBuilder.append(m + "\n"));
+            messageTextArea.setText(allMessagesBuilder.toString());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showMyBorrowedBooks(SqlRepository sqlRepository) {
@@ -216,6 +273,7 @@ public class MainScreenUserController {
                             Book item = getTableRow().getItem();
                             try {
                                 sqlRepository.LoanBook(item.getIDBook(), LoggedInUser.getLoggedUser().getIDUser());
+                                isLoaned = true;
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -237,5 +295,30 @@ public class MainScreenUserController {
         HelloApplication.getMainStage().setTitle(Constants.APPLICATION_NAME);
         HelloApplication.getMainStage().setScene(scene);
         HelloApplication.getMainStage().show();
+    }
+
+    public void sendMessage() {
+
+        try {
+            stub.sendMessage(messagesTextField.getText(), HelloController.playerUsername);
+
+            List<String> chatHistory = stub.receiveAllMessages();
+
+            StringBuilder chatHistoryBuilder = new StringBuilder();
+
+            for(String message : chatHistory) {
+                chatHistoryBuilder.append(message);
+                chatHistoryBuilder.append("\n");
+            }
+
+            messageTextArea.setText(chatHistoryBuilder.toString());
+            messagesTextField.clear();
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void refreshTable(){
+        tvBooks.refresh();
     }
 }

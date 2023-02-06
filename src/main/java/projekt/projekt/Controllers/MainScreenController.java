@@ -95,6 +95,14 @@ public class MainScreenController {
     @FXML
     private Tab tabMessages;
 
+    @FXML
+    private TextArea messageTextArea;
+    @FXML
+    private TextField messageTextField;
+    @FXML
+    private Button sendMessageButton;
+
+
     public void initialize(){
         SqlRepository sqlRepository = new SqlRepository();
 

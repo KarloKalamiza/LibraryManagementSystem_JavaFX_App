@@ -1,25 +1,29 @@
+/*
 package projekt.projekt.thread;
 
 import projekt.projekt.ApplicationData.ApplicationMetaData;
+import projekt.projekt.clientModels.ClientModel;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 public class ClientThread implements Runnable{
 
-    private ApplicationMetaData applicationMetaData;
+    private ClientModel cliendModel;
 
-    public ClientThread(ApplicationMetaData applicationMetaData){
+    public ClientThread(ClientModel cliendModel){
 
-        this.applicationMetaData = applicationMetaData;
+        this.cliendModel = cliendModel;
     }
 
     @Override
     public void run() {
         System.out.println("Client thread in run method");
 
-        try (ServerSocket serverSocket = new ServerSocket(2001)) {
+        try (Socket serverSocket = new Socket("localhost", 59001)) {
             System.out.println("Client 1 Server listening on port: " + serverSocket.getLocalPort());
 
             while (true) {
@@ -30,7 +34,7 @@ public class ClientThread implements Runnable{
 
                 try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
                      ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());){
-                    ApplicationMetaData applicationMetaData = (ApplicationMetaData) ois.readObject();
+                    ClientModel applicationMetaData = (ClientModel) ois.readObject();
 
                     System.out.println("Metadata received! " + applicationMetaData);
 
@@ -43,3 +47,4 @@ public class ClientThread implements Runnable{
         }
     }
 }
+*/

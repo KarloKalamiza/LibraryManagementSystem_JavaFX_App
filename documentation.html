@@ -14,10 +14,10 @@ private ClientData clientTwoData<br />
 <h4>public projekt.projekt.ApplicationData.ApplicationMetaData()</h4>
 <h4>public projekt.projekt.ApplicationData.ApplicationMetaData(ClientData arg0, ClientData arg1)</h4>
 <h2> List of methods: </h2>
-<h4>public ClientData getClientTwoData()</h4>
 <h4>public void setClientTwoData(ClientData arg0)</h4>
-<h4>public void setClientOneData(ClientData arg0)</h4>
 <h4>public ClientData getClientOneData()</h4>
+<h4>public ClientData getClientTwoData()</h4>
+<h4>public void setClientOneData(ClientData arg0)</h4>
 <h2>ClientData</h2>
 <h3> List of member variables: </h2>
 private Integer port<br />
@@ -30,11 +30,19 @@ private String password<br />
 <h4>public Integer getPort()</h4>
 <h4>public String getPassword()</h4>
 <h4>public void setPassword(String arg0)</h4>
-<h4>public void setIpAddress(String arg0)</h4>
-<h4>public void setPort(Integer arg0)</h4>
-<h4>public String getIpAddress()</h4>
 <h4>public String getUsername()</h4>
+<h4>public void setPort(Integer arg0)</h4>
 <h4>public void setUsername(String arg0)</h4>
+<h4>public void setIpAddress(String arg0)</h4>
+<h4>public String getIpAddress()</h4>
+<h2>ClientModel</h2>
+<h3> List of member variables: </h2>
+private Integer port<br />
+private String ipAddress<br />
+<h3> List of constructors: </h2>
+<h4>public projekt.projekt.clientModels.ClientModel(Integer arg0, String arg1)</h4>
+<h2> List of methods: </h2>
+<h4>public Integer getPort()</h4>
 <h2>Constants</h2>
 <h3> List of member variables: </h2>
 public static final String APPLICATION_NAME<br />
@@ -66,30 +74,15 @@ final MainScreenController this$0<br />
 <h4>public void handle(Event arg0)</h4>
 <h2></h2>
 <h3> List of member variables: </h2>
-final  this$1<br />
-<h3> List of constructors: </h2>
-<h2> List of methods: </h2>
-<h4>public void handle(Event arg0)</h4>
-<h4>public void handle(ActionEvent arg0)</h4>
-<h4>private void ClearForm(TextField arg0, TextField arg1, TextField arg2, TextField arg3)</h4>
-<h4>private boolean FormValid()</h4>
-<h2></h2>
-<h3> List of member variables: </h2>
 final SqlRepository val$sqlRepository<br />
 final MainScreenController this$0<br />
 <h3> List of constructors: </h2>
 <h2> List of methods: </h2>
+<h4>public void handle(ActionEvent arg0)</h4>
 <h4>public void handle(Event arg0)</h4>
 <h2></h2>
 <h3> List of member variables: </h2>
 List borrowedBooks<br />
-final SqlRepository val$sqlRepository<br />
-final MainScreenController this$0<br />
-<h3> List of constructors: </h2>
-<h2> List of methods: </h2>
-<h4>public void handle(Event arg0)</h4>
-<h2></h2>
-<h3> List of member variables: </h2>
 final SqlRepository val$sqlRepository<br />
 final MainScreenController this$0<br />
 <h3> List of constructors: </h2>
@@ -128,18 +121,22 @@ private Tab tabMessages<br />
 <h4>public projekt.projekt.Controllers.MainScreenController()</h4>
 <h2> List of methods: </h2>
 <h4>public void initialize()</h4>
-<h4>private void showAllBooks(SqlRepository arg0)</h4>
-<h4>private void ShowIniliateTab(SqlRepository arg0)</h4>
-<h4>private void showAddBookTab(SqlRepository arg0)</h4>
 <h4>private void showBorrowedBooks(SqlRepository arg0)</h4>
-<h4>public void loadBook()</h4>
+<h4>private void showAddBookTab(SqlRepository arg0)</h4>
+<h4>private void ShowIniliateTab(SqlRepository arg0)</h4>
+<h4>private void showAllBooks(SqlRepository arg0)</h4>
+<h4>private void ClearForm()</h4>
 <h4>public void saveBook()</h4>
+<h4>public void loadBook()</h4>
+<h4>private boolean FormValid()</h4>
 <h4>public void Logout()</h4>
 <h4>private void showRegisteredMembers(SqlRepository arg0)</h4>
 <h4>private void refreshUsersTableView()</h4>
-<h4>public void generateDocumentation()</h4>
 <h4>private static void showDocumentationInChromeBrowser()</h4>
-<h4>private static boolean lambda$generateDocumentation$0(Path arg0)</h4>
+<h4>private void lambda$showAddBookTab$0(SqlRepository arg0, Event arg1)</h4>
+<h4>private static boolean lambda$generateDocumentation$2(Path arg0)</h4>
+<h4>public void generateDocumentation()</h4>
+<h4>private void lambda$showAllBooks$1(SqlRepository arg0, Event arg1)</h4>
 <h2></h2>
 <h3> List of member variables: </h2>
 final Button button<br />
@@ -157,23 +154,8 @@ final MainScreenUserController this$0<br />
 <h3> List of constructors: </h2>
 <h2> List of methods: </h2>
 <h4>public void handle(Event arg0)</h4>
-<h4>private static ObservableValue lambda$handle$0(CellDataFeatures arg0)</h4>
 <h4>private TableCell lambda$handle$1(SqlRepository arg0, TableColumn arg1)</h4>
-<h2></h2>
-<h3> List of member variables: </h2>
-final SqlRepository val$sqlRepository<br />
-final MainScreenUserController this$0<br />
-<h3> List of constructors: </h2>
-<h2> List of methods: </h2>
-<h4>public void handle(Event arg0)</h4>
-<h2></h2>
-<h3> List of member variables: </h2>
-List books<br />
-final SqlRepository val$sqlRepository<br />
-final MainScreenUserController this$0<br />
-<h3> List of constructors: </h2>
-<h2> List of methods: </h2>
-<h4>public void handle(Event arg0)</h4>
+<h4>private static ObservableValue lambda$handle$0(CellDataFeatures arg0)</h4>
 <h2></h2>
 <h3> List of member variables: </h2>
 final Button button<br />
@@ -212,13 +194,15 @@ private TableColumn tcReturnButton<br />
 <h4>public projekt.projekt.Controllers.MainScreenUserController()</h4>
 <h2> List of methods: </h2>
 <h4>public void initialize()</h4>
-<h4>private void ShowInitiateTab(SqlRepository arg0)</h4>
-<h4>private void showMostBorrowedBooks(SqlRepository arg0)</h4>
-<h4>private void showMyBorrowedBooks(SqlRepository arg0)</h4>
 <h4>private void showAllBooks(SqlRepository arg0)</h4>
 <h4>public void Logout()</h4>
-<h4>private TableCell lambda$ShowInitiateTab$1(SqlRepository arg0, TableColumn arg1)</h4>
-<h4>private static ObservableValue lambda$ShowInitiateTab$0(CellDataFeatures arg0)</h4>
+<h4>private void lambda$showAllBooks$1(SqlRepository arg0, Event arg1)</h4>
+<h4>private TableCell lambda$ShowInitiateTab$3(SqlRepository arg0, TableColumn arg1)</h4>
+<h4>private static ObservableValue lambda$ShowInitiateTab$2(CellDataFeatures arg0)</h4>
+<h4>private void showMyBorrowedBooks(SqlRepository arg0)</h4>
+<h4>private void showMostBorrowedBooks(SqlRepository arg0)</h4>
+<h4>private void lambda$showMostBorrowedBooks$0(SqlRepository arg0, Event arg1)</h4>
+<h4>private void ShowInitiateTab(SqlRepository arg0)</h4>
 <h2>SignupController</h2>
 <h3> List of member variables: </h2>
 private Button btnSignUp<br />
@@ -244,17 +228,17 @@ private Boolean isLoaned<br />
 <h4>public projekt.projekt.Data.models.Book(int arg0, String arg1, String arg2, String arg3, String arg4, Boolean arg5)</h4>
 <h4>public projekt.projekt.Data.models.Book(int arg0, String arg1, String arg2, String arg3, String arg4)</h4>
 <h2> List of methods: </h2>
-<h4>public String getAuthor()</h4>
-<h4>public String getISBN()</h4>
-<h4>public void setDescription(String arg0)</h4>
 <h4>public void setTitle(String arg0)</h4>
-<h4>public String getDescription()</h4>
-<h4>public void setIDBook(int arg0)</h4>
-<h4>public void setAuthor(String arg0)</h4>
 <h4>public void setISBN(String arg0)</h4>
 <h4>public int getIDBook()</h4>
+<h4>public void setAuthor(String arg0)</h4>
 <h4>public Boolean getLoaned()</h4>
 <h4>public void setLoaned(Boolean arg0)</h4>
+<h4>public void setIDBook(int arg0)</h4>
+<h4>public String getISBN()</h4>
+<h4>public String getAuthor()</h4>
+<h4>public void setDescription(String arg0)</h4>
+<h4>public String getDescription()</h4>
 <h4>public String getTitle()</h4>
 <h2>Loan</h2>
 <h3> List of member variables: </h2>
@@ -284,31 +268,31 @@ private String Contact<br />
 <h4>public String getPassword()</h4>
 <h4>public void setPassword(String arg0)</h4>
 <h4>public String getUsername()</h4>
-<h4>public String getContact()</h4>
 <h4>public String getEmail()</h4>
+<h4>public String getContact()</h4>
 <h4>public void setUsername(String arg0)</h4>
-<h4>public void setIDUser(int arg0)</h4>
 <h4>public int getIDUser()</h4>
-<h4>public void setContact(String arg0)</h4>
+<h4>public void setIDUser(int arg0)</h4>
 <h4>public void setEmail(String arg0)</h4>
+<h4>public void setContact(String arg0)</h4>
 <h2>Repository</h2>
 <h3> List of member variables: </h2>
 <h3> List of constructors: </h2>
 <h2> List of methods: </h2>
+<h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
+<h4>public void deleteBook(int arg0)</h4>
 <h4>public Optional getBook(int arg0)</h4>
+<h4>public List getBorrowedBooks()</h4>
+<h4>public void createBook(Book arg0)</h4>
+<h4>public void createBooks(List arg0)</h4>
+<h4>public void updateBook(int arg0, Book arg1)</h4>
 <h4>public void deleteUser(int arg0)</h4>
 <h4>public Optional getUser(int arg0)</h4>
-<h4>public void LoanBook(int arg0, int arg1)</h4>
-<h4>public void createBook(Book arg0)</h4>
-<h4>public List getBorrowedBooks()</h4>
-<h4>public void ReturnBook(int arg0, int arg1)</h4>
-<h4>public void createUser(User arg0)</h4>
-<h4>public void deleteBook(int arg0)</h4>
-<h4>public void updateBook(int arg0, Book arg1)</h4>
-<h4>public List getMyBorrowedBooks(int arg0)</h4>
-<h4>public void createBooks(List arg0)</h4>
 <h4>public List getUsers()</h4>
-<h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
+<h4>public void LoanBook(int arg0, int arg1)</h4>
+<h4>public void createUser(User arg0)</h4>
+<h4>public void ReturnBook(int arg0, int arg1)</h4>
+<h4>public List getMyBorrowedBooks(int arg0)</h4>
 <h4>public List getBooks()</h4>
 <h4>public List getnOTBorrowedBooks()</h4>
 <h4>public List getMostBorrowedBooks()</h4>
@@ -326,7 +310,6 @@ private static final String USER<br />
 private static final String PASSWORD<br />
 private static DataSource instance<br />
 <h3> List of constructors: </h2>
-<h4>public projekt.projekt.Data.SQL.DataSourceSingleton()</h4>
 <h2> List of methods: </h2>
 <h4>public static DataSource getInstance()</h4>
 <h4>private static DataSource createInstance()</h4>
@@ -365,20 +348,20 @@ public static final String RETURN_BOOK<br />
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.Data.SQL.SqlRepository()</h4>
 <h2> List of methods: </h2>
+<h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
+<h4>public void deleteBook(int arg0)</h4>
 <h4>public Optional getBook(int arg0)</h4>
+<h4>public List getBorrowedBooks()</h4>
+<h4>public void createBook(Book arg0)</h4>
+<h4>public void createBooks(List arg0)</h4>
+<h4>public void updateBook(int arg0, Book arg1)</h4>
 <h4>public void deleteUser(int arg0)</h4>
 <h4>public Optional getUser(int arg0)</h4>
-<h4>public void LoanBook(int arg0, int arg1)</h4>
-<h4>public void createBook(Book arg0)</h4>
-<h4>public List getBorrowedBooks()</h4>
-<h4>public void ReturnBook(int arg0, int arg1)</h4>
-<h4>public void createUser(User arg0)</h4>
-<h4>public void deleteBook(int arg0)</h4>
-<h4>public void updateBook(int arg0, Book arg1)</h4>
-<h4>public List getMyBorrowedBooks(int arg0)</h4>
-<h4>public void createBooks(List arg0)</h4>
 <h4>public List getUsers()</h4>
-<h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
+<h4>public void LoanBook(int arg0, int arg1)</h4>
+<h4>public void createUser(User arg0)</h4>
+<h4>public void ReturnBook(int arg0, int arg1)</h4>
+<h4>public List getMyBorrowedBooks(int arg0)</h4>
 <h4>public List getBooks()</h4>
 <h4>public List getnOTBorrowedBooks()</h4>
 <h4>public List getMostBorrowedBooks()</h4>
@@ -405,6 +388,30 @@ public static final int PORT<br />
 <h4>private void ClearTextFields()</h4>
 <h4>public void signUp()</h4>
 <h4>public void login()</h4>
+<h2>JNDIConfigurationKey</h2>
+<h3> List of member variables: </h2>
+public static final JNDIConfigurationKey RMI_SERVER_PORT<br />
+public static final JNDIConfigurationKey RANDOM_PORT<br />
+public static final JNDIConfigurationKey GAME_SERVER_PORT<br />
+public static final JNDIConfigurationKey GAME_SERVER_IP<br />
+private String configurationKey<br />
+private static final JNDIConfigurationKey[] $VALUES<br />
+<h3> List of constructors: </h2>
+<h2> List of methods: </h2>
+<h4>public static JNDIConfigurationKey[] values()</h4>
+<h4>public static JNDIConfigurationKey valueOf(String arg0)</h4>
+<h4>private static JNDIConfigurationKey[] $values()</h4>
+<h4>public String getConfigurationKey()</h4>
+<h2>JNDIManager</h2>
+<h3> List of member variables: </h2>
+private static final String PROVIDER_URL<br />
+private static final String CONFIGURATION_FILE_NAME<br />
+private static InitialContext context<br />
+<h3> List of constructors: </h2>
+<h4>public projekt.projekt.jndi.JNDIManager()</h4>
+<h2> List of methods: </h2>
+<h4>public static String getConfigurationParameter(JNDIConfigurationKey arg0)</h4>
+<h4>public static InitialContext getInitialContext()</h4>
 <h2>LoggedInUser</h2>
 <h3> List of member variables: </h2>
 private static User loggedUser<br />
@@ -418,14 +425,14 @@ private String ContactLoggedUser<br />
 <h4>public projekt.projekt.Model.LoggedInUser(int arg0)</h4>
 <h4>public projekt.projekt.Model.LoggedInUser(int arg0, String arg1, String arg2, String arg3)</h4>
 <h2> List of methods: </h2>
-<h4>public static User getLoggedUser()</h4>
-<h4>public String getEmailLoggedUser()</h4>
-<h4>public void setEmailLoggedUser(String arg0)</h4>
-<h4>public int getIDLoggedUser()</h4>
 <h4>public static void setLoggedUser(User arg0)</h4>
-<h4>public String getContactLoggedUser()</h4>
-<h4>public String getUsernameLoggedUser()</h4>
+<h4>public static User getLoggedUser()</h4>
+<h4>public int getIDLoggedUser()</h4>
+<h4>public void setEmailLoggedUser(String arg0)</h4>
+<h4>public String getEmailLoggedUser()</h4>
 <h4>public void setContactLoggedUser(String arg0)</h4>
+<h4>public String getUsernameLoggedUser()</h4>
+<h4>public String getContactLoggedUser()</h4>
 <h4>public void setUsernameLoggedUser(String arg0)</h4>
 <h2>RowState</h2>
 <h3> List of member variables: </h2>
@@ -438,22 +445,57 @@ private String contact<br />
 <h4>public projekt.projekt.Model.RowState()</h4>
 <h2> List of methods: </h2>
 <h4>public String toString()</h4>
-<h4>public void setUserId(String arg0)</h4>
 <h4>public String getUsername()</h4>
-<h4>public String getContact()</h4>
-<h4>public String getEmail()</h4>
 <h4>public String getUserId()</h4>
+<h4>public String getEmail()</h4>
+<h4>public String getContact()</h4>
 <h4>public void setUsername(String arg0)</h4>
-<h4>public void setContact(String arg0)</h4>
 <h4>public void setEmail(String arg0)</h4>
+<h4>public void setContact(String arg0)</h4>
+<h4>public void setUserId(String arg0)</h4>
 <h2>UsersState</h2>
 <h3> List of member variables: </h2>
 private List usersStateList<br />
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.Model.UsersState()</h4>
 <h2> List of methods: </h2>
-<h4>public List getUsersStateList()</h4>
 <h4>public void setUsersStateList(List arg0)</h4>
+<h4>public List getUsersStateList()</h4>
+<h2>ChatService</h2>
+<h3> List of member variables: </h2>
+public static final String REMOTE_OBJECT_NAME<br />
+<h3> List of constructors: </h2>
+<h2> List of methods: </h2>
+<h4>public List receiveAllMessages()</h4>
+<h4>public void sendMessage(String arg0, String arg1)</h4>
+<h2>ChatServiceImplementation</h2>
+<h3> List of member variables: </h2>
+private List allMessages<br />
+private String lastMessage<br />
+<h3> List of constructors: </h2>
+<h4>public projekt.projekt.rmiserver.ChatServiceImplementation()</h4>
+<h2> List of methods: </h2>
+<h4>public List receiveAllMessages()</h4>
+<h4>public void sendMessage(String arg0, String arg1)</h4>
+<h2>RmiServer</h2>
+<h3> List of member variables: </h2>
+<h3> List of constructors: </h2>
+<h4>public projekt.projekt.rmiserver.RmiServer()</h4>
+<h2> List of methods: </h2>
+<h4>public static void main(String[] arg0)</h4>
+<h2>Server</h2>
+<h3> List of member variables: </h2>
+public static int PORT<br />
+public static String HOST<br />
+private static Map clientsMap<br />
+<h3> List of constructors: </h2>
+<h4>public projekt.projekt.server.Server()</h4>
+<h2> List of methods: </h2>
+<h4>public static void main(String[] arg0)</h4>
+<h4>private static void acceptRequest()</h4>
+<h4>private static void lambda$acceptRequest$0(Socket arg0)</h4>
+<h4>private static void processSerializableClient(Socket arg0)</h4>
+<h4>private static void setServerProperties()</h4>
 <h2>ClientThread</h2>
 <h3> List of member variables: </h2>
 private ApplicationMetaData applicationMetaData<br />
@@ -483,60 +525,17 @@ private ApplicationMetaData applicationMetaData<br />
 <h4>private static boolean isProtected(int arg0)</h4>
 <h4>private static boolean isFinal(int arg0)</h4>
 <h4>private static boolean isPrivate(int arg0)</h4>
-<h4>public static String retrieveModifiers(int arg0)</h4>
 <h4>public static String retreiveParameters(Parameter[] arg0)</h4>
+<h4>public static String retrieveModifiers(int arg0)</h4>
 <h2>ScreenUtils</h2>
 <h3> List of member variables: </h2>
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.Utils.ScreenUtils()</h4>
 <h2> List of methods: </h2>
 <h4>public static void setNewSceneToStage(String arg0, String arg1)</h4>
-<h4>public static void ChangeScreen(ActionEvent arg0, String arg1)</h4>
 
 </body>
-</html>int arg1)</h4>
-<h4>public List getUsers()</h4>
-<h4>public void LoanBook(int arg0, int arg1)</h4>
-<h4>public List getnOTBorrowedBooks()</h4>
-<h4>public List getMostBorrowedBooks()</h4>
-<h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
-<h4>public List getBooks()</h4>
-<h2>HelloApplication</h2>
-<h3> List of member variables: </h2>
-private static Stage mainStage<br />
-<h3> List of constructors: </h2>
-<h4>public projekt.projekt.HelloApplication()</h4>
-<h2> List of methods: </h2>
-<h4>public static void main(String[] arg0)</h4>
-<h4>public void start(Stage arg0)</h4>
-<h4>public static Stage getMainStage()</h4>
-<h2></h2>
-<h3> List of member variables: </h2>
-<h3> List of constructors: </h2>
-<h2> List of methods: </h2>
-<h4>public void handle(ActionEvent arg0)</h4>
-<h4>public void handle(Event arg0)</h4>
-<h2></h2>
-<h3> List of member variables: </h2>
-final HelloController this$0<br />
-<h3> List of constructors: </h2>
-<h2> List of methods: </h2>
-<h4>public void handle(ActionEvent arg0)</h4>
-<h4>public void handle(Event arg0)</h4>
-<h2>HelloController</h2>
-<h3> List of member variables: </h2>
-private Button btnLogin<br />
-private Button btnSignup<br />
-private TextField tfUsername<br />
-private PasswordField tfPassword<br />
-<h3> List of constructors: </h2>
-<h4>public projekt.projekt.HelloController()</h4>
-<h2> List of methods: </h2>
-<h4>public void initialize(URL arg0, ResourceBundle arg1)</h4>
-<h2>LoggedInUser</h2>
-<h3> List of member variables: </h2>
-private static User loggedUser<br />
-private int IDLoggedUser<br />
+</html>DLoggedUser<br />
 private int UsernameLoggedUser<br />
 private int EmailLoggedUser<br />
 private int ContactLoggedUser<br />
