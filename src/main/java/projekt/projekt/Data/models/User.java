@@ -19,6 +19,13 @@ public class User {
         Contact = contact;
     }
 
+    public User(int IDUser, String username, String email, String contact) {
+        this.IDUser = IDUser;
+        Username = username;
+        Email = email;
+        Contact = contact;
+    }
+
     public User(String username, String password, String email, String contact) {
         Username = username;
         Password = password;

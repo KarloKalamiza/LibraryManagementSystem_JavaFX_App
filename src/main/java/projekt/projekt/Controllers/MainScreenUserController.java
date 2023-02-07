@@ -1,5 +1,6 @@
 package projekt.projekt.Controllers;
 
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
@@ -17,14 +18,23 @@ import projekt.projekt.HelloApplication;
 import projekt.projekt.HelloController;
 import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
+import projekt.projekt.clientModels.ClientModel;
 import projekt.projekt.rmiserver.ChatService;
+import projekt.projekt.server.Server;
+import projekt.projekt.thread.ClientThread;
+
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainScreenUserController {
 
@@ -104,10 +114,10 @@ public class MainScreenUserController {
 
     private ChatService stub;
 
-    public static boolean isLoaned = false;
+    private SqlRepository sqlRepository = new SqlRepository();
 
     public void initialize() {
-        SqlRepository sqlRepository = new SqlRepository();
+
 
         ShowInitiateTab(sqlRepository);
         showAllBooks(sqlRepository);
@@ -123,10 +133,13 @@ public class MainScreenUserController {
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
+
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(new ClientThread(this));
     }
 
-    public void refreshMessage(){
-        while (true){
+    public void refreshMessage() {
+        while (true) {
             try {
                 Thread.sleep(1000);
                 messageTextArea.clear();
@@ -269,7 +282,7 @@ public class MainScreenUserController {
                             Book item = getTableRow().getItem();
                             try {
                                 sqlRepository.LoanBook(item.getIDBook(), LoggedInUser.getLoggedUser().getIDUser());
-                                isLoaned = true;
+                                Server.IS_LOANED = true;
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -302,7 +315,7 @@ public class MainScreenUserController {
 
             StringBuilder chatHistoryBuilder = new StringBuilder();
 
-            for(String message : chatHistory) {
+            for (String message : chatHistory) {
                 chatHistoryBuilder.append(message);
                 chatHistoryBuilder.append("\n");
             }
@@ -314,7 +327,9 @@ public class MainScreenUserController {
         }
     }
 
-    public void refreshTable(){
-        tvBooks.refresh();
+    public void refreshTable() {
+        System.out.println("Osvjezavanje tablice u controlleru");
+        ShowInitiateTab(sqlRepository);
+        System.out.println("Osvjezavanje zavrseno");
     }
 }

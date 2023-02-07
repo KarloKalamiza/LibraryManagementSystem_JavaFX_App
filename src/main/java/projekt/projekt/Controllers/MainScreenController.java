@@ -1,6 +1,7 @@
 package projekt.projekt.Controllers;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -116,10 +117,10 @@ public class MainScreenController {
     private Button sendMessageButton;
 
 
-    public void initialize(){
+    public void initialize() {
         SqlRepository sqlRepository = new SqlRepository();
 
-        ShowIniliateTab(sqlRepository);
+        showInitiateTab(sqlRepository);
         showAllBooks(sqlRepository);
         showBorrowedBooks(sqlRepository);
         showAddBookTab(sqlRepository);
@@ -210,12 +211,14 @@ public class MainScreenController {
     }
 
     private void showAllBooks(SqlRepository sqlRepository) {
-        tabBooks.setOnSelectionChanged(event -> ShowIniliateTab(sqlRepository));
+        tabBooks.setOnSelectionChanged(event -> showInitiateTab(sqlRepository));
     }
 
-    private void ShowIniliateTab(SqlRepository sqlRepository) {
+    private void showInitiateTab(SqlRepository sqlRepository) {
         List<Book> books;
         try {
+
+
             books = sqlRepository.getBooks();
 
             tcIDbook.setCellValueFactory(new PropertyValueFactory<>(Constants.IDBOOK_COLUMN));
@@ -241,18 +244,25 @@ public class MainScreenController {
 
     public void saveBook() throws IOException {
 
-        //UsersState usersState = new UsersState();
+        UsersState usersState = new UsersState();
         List<RowState> rowStateList = new ArrayList<>();
+        List<User> tableList = tvRegisteredUsers.getItems();
 
-        RowState rowState = new RowState(
-          tcIDUser.getText(), tcUsername.getText(), tcEmailAddress.getText(), tcContactNumber.getText()
+        for(User u : tableList){
+            RowState rowState = new RowState(
+                   String.valueOf(u.getIDUser()), u.getUsername(), u.getEmail(), u.getContact()
+            );
+            rowStateList.add(rowState);
+        }
+
+       /* RowState rowState = new RowState(
+                tcIDUser.getText(), tcUsername.getText(), tcEmailAddress.getText(), tcContactNumber.getText()
         );
-        rowStateList.add(rowState);
-        //usersState.setUsersStateList(rowStateList);
+        rowStateList.add(rowState);*/
+        usersState.setUsersStateList(rowStateList);
 
-        try(ObjectOutputStream serializator = new ObjectOutputStream(new FileOutputStream(Constants.SERIALIZATION_DOCUMENT)))
-        {
-            serializator.writeObject(rowStateList);
+        try (ObjectOutputStream serializator = new ObjectOutputStream(new FileOutputStream(Constants.SERIALIZATION_DOCUMENT))) {
+            serializator.writeObject(usersState);
         }
 
         refreshUsersTableView();
@@ -260,20 +270,26 @@ public class MainScreenController {
     }
 
     private void refreshUsersTableView() {
-        tvRegisteredUsers.refresh();
+        ObservableList<User> tableList = tvRegisteredUsers.getItems();
+        tableList.clear();
+        //tvRegisteredUsers.refresh();
     }
 
     public void loadBook() throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constants.SERIALIZATION_DOCUMENT)))
-        {
-//            UsersState usersState = (UsersState) ois.readObject();
-//            for (RowState rowState : usersState.getUsersStateList()){
-//                tcIDUser.setText(rowState.getUserId());
-//                tcUsername.setText(rowState.getUsername());
-//                tcEmailAddress.setText(rowState.getEmail());
-//                tcContactNumber.setText(rowState.getContact());
-//            }
+        List<User> tableList = new ArrayList<>();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constants.SERIALIZATION_DOCUMENT))) {
+            UsersState usersState = (UsersState) ois.readObject();
+            for (RowState rowState : usersState.getUsersStateList()){
+                User u = new User(Integer.parseInt(rowState.getUserId()), rowState.getUsername(), rowState.getEmail(), rowState.getContact());
+                tableList.add(u);
+               /* tcIDUser.setText(rowState.getUserId());
+                tcUsername.setText(rowState.getUsername());
+                tcEmailAddress.setText(rowState.getEmail());
+                tcContactNumber.setText(rowState.getContact());*/
+            }
         }
+
+        tvRegisteredUsers.setItems(FXCollections.observableArrayList(tableList));
 
         AlertUtils.Information("Load users", "Users have been loaded successfully");
     }
@@ -288,27 +304,26 @@ public class MainScreenController {
 
             List<Class> metaInfo = new ArrayList<>();
 
-            for(Path path : filesList) {
+            for (Path path : filesList) {
 
                 String fullQualifiedClassName = "";
 
-                System.out.println("Class name: " + path .toString());
+                System.out.println("Class name: " + path.toString());
                 String[] paths = path.toString().split("\\\\");
 
                 Boolean startJoining = false;
 
-                for(String segment : paths) {
+                for (String segment : paths) {
 
-                    if("classes".equals(segment)) {
+                    if ("classes".equals(segment)) {
                         startJoining = true;
                         continue;
                     }
 
-                    if(startJoining) {
-                        if(segment.endsWith(Constants.CLASS_EXTENSION)) {
+                    if (startJoining) {
+                        if (segment.endsWith(Constants.CLASS_EXTENSION)) {
                             fullQualifiedClassName += segment.substring(0, segment.lastIndexOf("."));
-                        }
-                        else {
+                        } else {
                             fullQualifiedClassName += segment + ".";
                         }
                     }
@@ -323,12 +338,12 @@ public class MainScreenController {
 
             String documentationString = "";
 
-            for(Class clazz : metaInfo) {
+            for (Class clazz : metaInfo) {
                 documentationString += "<h2>" + clazz.getSimpleName() + "</h2>\n";
 
                 documentationString += "<h3> List of member variables: </h2>\n";
 
-                for(Field memberVariable : clazz.getDeclaredFields()) {
+                for (Field memberVariable : clazz.getDeclaredFields()) {
                     documentationString += ReflectionUtils.retrieveModifiers(
                             memberVariable.getModifiers())
                             + memberVariable.getType().getSimpleName() + " "
@@ -339,7 +354,7 @@ public class MainScreenController {
 
                 documentationString += "<h3> List of constructors: </h2>\n";
 
-                for(Constructor c : constructors) {
+                for (Constructor c : constructors) {
 
                     documentationString += "<h4>" +
                             ReflectionUtils.retrieveModifiers(c.getModifiers())
@@ -348,7 +363,7 @@ public class MainScreenController {
 
                 documentationString += "<h2> List of methods: </h2>\n";
 
-                for(Method method : clazz.getDeclaredMethods()) {
+                for (Method method : clazz.getDeclaredMethods()) {
 
                     documentationString += "<h4>" + ReflectionUtils.retrieveModifiers(method.getModifiers())
                             + method.getReturnType().getSimpleName() + " "
@@ -385,16 +400,16 @@ public class MainScreenController {
 
     private static void showDocumentationInChromeBrowser(String command) throws Exception {
         Runtime r = Runtime.getRuntime();
-        try{
+        try {
             r.exec(command);
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new Exception(e);
         }
     }
 
     @FXML
-    public void saveToXML(ActionEvent event){
-        if (formValid()){
+    public void saveToXML(ActionEvent event) {
+        if (formValid()) {
             try {
                 String title = tfTitle.getText();
                 String author = tfAuthor.getText();
@@ -445,7 +460,7 @@ public class MainScreenController {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-        } else{
+        } else {
             AlertUtils.Information("Empty data", "Please fill the text fields!");
         }
     }
@@ -458,7 +473,7 @@ public class MainScreenController {
     }
 
     @FXML
-    private void loadXMLFile(){
+    private void loadXMLFile() {
         try {
             String title;
             String author;
@@ -474,11 +489,11 @@ public class MainScreenController {
 
             NodeList nodeList = doc.getElementsByTagName("Book");
 
-            for (int itr = 0; itr < nodeList.getLength(); itr++){
+            for (int itr = 0; itr < nodeList.getLength(); itr++) {
                 Node node = nodeList.item(itr);
                 //System.out.println("\nNode Name :" + node.getNodeName());
 
-                if (node.getNodeType() == Node.ELEMENT_NODE){
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) node;
                     title = eElement.getElementsByTagName("Title").item(0).getTextContent();
                     author = eElement.getElementsByTagName("Author").item(0).getTextContent();
@@ -496,7 +511,7 @@ public class MainScreenController {
 //                    System.out.println("ISBN: " + isbn);
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             AlertUtils.Error("Error occurred!", e.toString());
         }
     }

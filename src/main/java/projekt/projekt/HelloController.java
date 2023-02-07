@@ -70,48 +70,6 @@ public class HelloController {
         }
 
         playerUsername = username;
-
-        try (Socket clientSocket = new Socket(HOST, PORT)) {
-            System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
-
-            System.out.println("Player 1 thread is starting");
-
-            //ExecutorService executor = Executors.newSingleThreadExecutor();
-            //executor.execute(new ClientThread(new ClientModel()));
-            //System.out.println("Player 1 thread started");
-
-            ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
-            ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-            oos.writeObject(new ClientModel(clientSocket.getLocalPort(),
-                    clientSocket.getLocalAddress().getHostName(),
-                    tfUsername.getText()));
-
-            System.out.println("PlayerData Object sent to server");
-
-            ClientModel currentApplicationMetaData = (ClientModel) ois.readObject();
-
-            System.out.println("Player ONE port:: " + currentApplicationMetaData.getPort());
-
-//            while (true) {
-//                System.out.println("Waiting for data...");
-//                if (ois.readObject() != null) {
-//                    System.out.println("Data available!");
-//                    String returnMessage = (String) ois.readObject();
-//                    System.out.println(returnMessage);
-//
-//                    if (returnMessage.equals("Refresh")) {
-//                        //MainScreenUserController.refreshTable();
-//                        System.out.println("Ispis");
-//                    }
-//                }
-//                if (MainScreenUserController.isLoaned) {
-//                    oos.writeObject("Loan");
-//                    MainScreenUserController.isLoaned = false;
-//                }
-//            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 
     private void ClearTextFields() {

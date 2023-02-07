@@ -1,50 +1,85 @@
-/*
 package projekt.projekt.thread;
 
-import projekt.projekt.ApplicationData.ApplicationMetaData;
+import projekt.projekt.Controllers.MainScreenUserController;
+import projekt.projekt.HelloController;
 import projekt.projekt.clientModels.ClientModel;
+import projekt.projekt.server.Server;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Scanner;
 
-public class ClientThread implements Runnable{
+public class ClientThread implements Runnable {
 
-    private ClientModel cliendModel;
 
-    public ClientThread(ClientModel cliendModel){
+    private MainScreenUserController controller;
 
-        this.cliendModel = cliendModel;
+    public ClientThread(MainScreenUserController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void run() {
-        System.out.println("Client thread in run method");
+        try (Socket clientSocket = new Socket(HelloController.HOST, HelloController.PORT)) {
+            System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
 
-        try (Socket serverSocket = new Socket("localhost", 59001)) {
-            System.out.println("Client 1 Server listening on port: " + serverSocket.getLocalPort());
+            System.out.println("Player 1 thread is starting");
 
-            while (true) {
-                System.out.println("Client thread in while loop");
 
-                Socket clientSocket = serverSocket.accept();
-                System.err.println("GameServer connected from PORT: " + clientSocket.getPort());
+            //System.out.println("Player 1 thread started");
 
-                try (ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-                     ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());){
-                    ClientModel applicationMetaData = (ClientModel) ois.readObject();
+            PrintWriter oos = new PrintWriter(clientSocket.getOutputStream(), true);
+            Scanner ois = new Scanner(clientSocket.getInputStream());
+//            oos.writeObject(new ClientModel(clientSocket.getLocalPort(),
+//                    clientSocket.getLocalAddress().getHostName(),
+//                    HelloController.playerUsername));
 
-                    System.out.println("Metadata received! " + applicationMetaData);
+            System.out.println("PlayerData Object sent to server");
 
-                } catch (IOException | ClassNotFoundException e) {
-                    e.printStackTrace();
+           // ClientModel currentApplicationMetaData = (ClientModel) ois.readObject();
+
+           // System.out.println("Player ONE port:: " + currentApplicationMetaData.getPort());
+
+            String returnMessage = null;
+
+            while (ois.hasNext()) {
+                returnMessage = ois.next();
+
+                //System.out.println("Waiting for data...");
+
+                if (returnMessage.startsWith("Check")) {
+                   // System.out.println("Provjera");
+                    oos.println("Loan=" + Server.IS_LOANED);
+
+                    if (Server.IS_LOANED) {
+                        System.out.println("Knjiga je posudena");
+
+                    }
                 }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+                else if (returnMessage.startsWith("Refresh")) {
+                    System.out.println("Osvjezavanje tablice s knjigama");
+                    controller.refreshTable();
+                    System.out.println("Ispis");
+                }else if(returnMessage.startsWith("Update")){
+                    System.out.println("Postavljenje IS_LOANED na false");
+                    Server.IS_LOANED = false;
+                }
+
+
+            //System.out.println("Sending message to server");
+            //  oos.writeObject("Loan="+ Server.IS_LOANED);
+
+
         }
+
+            System.out.println("While loop finished");
+    } catch(IOException e)
+
+    {
+        e.printStackTrace();
     }
 }
-*/
+}
