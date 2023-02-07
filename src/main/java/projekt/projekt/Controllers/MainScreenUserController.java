@@ -18,7 +18,6 @@ import projekt.projekt.HelloController;
 import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.rmiserver.ChatService;
-
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -121,9 +120,6 @@ public class MainScreenUserController {
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             new Thread(() -> refreshMessage()).start();
             stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
-
-
-
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
@@ -300,7 +296,7 @@ public class MainScreenUserController {
     public void sendMessage() {
 
         try {
-            stub.sendMessage(messagesTextField.getText(), HelloController.playerUsername);
+            stub.sendMessage(messagesTextField.getText(), HelloController.playerUsername, HelloController.dateTime);
 
             List<String> chatHistory = stub.receiveAllMessages();
 

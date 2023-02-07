@@ -9,6 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import projekt.projekt.Constants.Constants;
 import projekt.projekt.Data.SQL.SqlRepository;
 import projekt.projekt.Data.models.Book;
@@ -18,6 +22,15 @@ import projekt.projekt.Model.RowState;
 import projekt.projekt.Model.UsersState;
 import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.Utils.ReflectionUtils;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -139,7 +152,7 @@ public class MainScreenController {
         tabAddBook.setOnSelectionChanged(event -> btnAddBook.setOnAction(new EventHandler<>() {
             @Override
             public void handle(ActionEvent event) {
-                if (FormValid()) {
+                if (formValid()) {
                     String title = tfTitle.getText().trim();
                     String author = tfAuthor.getText().trim();
                     String isbn = tfISBN.getText().trim();
@@ -150,7 +163,7 @@ public class MainScreenController {
                     try {
                         sqlRepository.createBook(book);
                         AlertUtils.Information("Adding Book Notification", "Book is successfully added!");
-                        ClearForm();
+                        clearForm();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -161,14 +174,14 @@ public class MainScreenController {
         }));
     }
 
-    private void ClearForm() {
+    private void clearForm() {
         tfTitle.setText("");
         tfAuthor.setText("");
         tfISBN.setText("");
         tfDescription.setText("");
     }
 
-    private boolean FormValid() {
+    private boolean formValid() {
         return !tfTitle.getText().isEmpty() && !tfAuthor.getText().isEmpty()
                 && !tfISBN.getText().isEmpty() && !tfDescription.getText().isEmpty();
     }
@@ -228,18 +241,18 @@ public class MainScreenController {
 
     public void saveBook() throws IOException {
 
-        UsersState usersState = new UsersState();
+        //UsersState usersState = new UsersState();
         List<RowState> rowStateList = new ArrayList<>();
 
         RowState rowState = new RowState(
           tcIDUser.getText(), tcUsername.getText(), tcEmailAddress.getText(), tcContactNumber.getText()
         );
         rowStateList.add(rowState);
-        usersState.setUsersStateList(rowStateList);
+        //usersState.setUsersStateList(rowStateList);
 
-        try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(Constants.SERIALIZATION_DOCUMENT)))
+        try(ObjectOutputStream serializator = new ObjectOutputStream(new FileOutputStream(Constants.SERIALIZATION_DOCUMENT)))
         {
-            oos.writeObject(usersState);
+            serializator.writeObject(rowStateList);
         }
 
         refreshUsersTableView();
@@ -247,22 +260,19 @@ public class MainScreenController {
     }
 
     private void refreshUsersTableView() {
-        tcIDUser.setText("");
-        tcUsername.setText("");
-        tcEmailAddress.setText("");
-        tcContactNumber.setText("");
+        tvRegisteredUsers.refresh();
     }
 
     public void loadBook() throws IOException, ClassNotFoundException {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constants.SERIALIZATION_DOCUMENT)))
         {
-            UsersState usersState = (UsersState) ois.readObject();
-            for (RowState rowState : usersState.getUsersStateList()){
-                tcIDUser.setText(rowState.getUserId());
-                tcUsername.setText(rowState.getUsername());
-                tcEmailAddress.setText(rowState.getEmail());
-                tcContactNumber.setText(rowState.getContact());
-            }
+//            UsersState usersState = (UsersState) ois.readObject();
+//            for (RowState rowState : usersState.getUsersStateList()){
+//                tcIDUser.setText(rowState.getUserId());
+//                tcUsername.setText(rowState.getUsername());
+//                tcEmailAddress.setText(rowState.getEmail());
+//                tcContactNumber.setText(rowState.getContact());
+//            }
         }
 
         AlertUtils.Information("Load users", "Users have been loaded successfully");
@@ -368,16 +378,126 @@ public class MainScreenController {
 
         AlertUtils.Information("Documentation generation", "Documentation generated successfully");
 
-        showDocumentationInChromeBrowser();
+        String command = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe " +
+                "\"C:\\Users\\Korisnik\\Desktop\\Java2_aplikacija\\documentation.html\"";
+        showDocumentationInChromeBrowser(command);
     }
 
-    private static void showDocumentationInChromeBrowser() throws Exception {
+    private static void showDocumentationInChromeBrowser(String command) throws Exception {
         Runtime r = Runtime.getRuntime();
         try{
-            r.exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe " +
-                    "\"C:\\Users\\karlo\\OneDrive\\Radna površina\\ALgebra-5semestar\\Java2\\ProjektniZadatak\\Projekt\\documentation.html\"");
+            r.exec(command);
         } catch(IOException e) {
             throw new Exception(e);
+        }
+    }
+
+    @FXML
+    public void saveToXML(ActionEvent event){
+        if (formValid()){
+            try {
+                String title = tfTitle.getText();
+                String author = tfAuthor.getText();
+                String description = tfDescription.getText();
+                String isbn = tfISBN.getText();
+
+                DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+                Document xmlDocument = documentBuilder.newDocument();
+
+                Element rootElement = xmlDocument.createElement("Book");
+                xmlDocument.appendChild(rootElement);
+
+                Element titleElement = xmlDocument.createElement("Title");
+                Node titleTextNode = xmlDocument.createTextNode(title);
+                titleElement.appendChild(titleTextNode);
+                rootElement.appendChild(titleElement);
+
+                Element authorElement = xmlDocument.createElement("Author");
+                Node authorTextNode = xmlDocument.createTextNode(author);
+                authorElement.appendChild(authorTextNode);
+                rootElement.appendChild(authorElement);
+
+                Element isbnElement = xmlDocument.createElement("ISBN");
+                Node isbnTextNode = xmlDocument.createTextNode(isbn);
+                isbnElement.appendChild(isbnTextNode);
+                rootElement.appendChild(isbnElement);
+
+                Element descriptionElement = xmlDocument.createElement("Description");
+                Node descriptionTextNode = xmlDocument.createTextNode(description);
+                descriptionElement.appendChild(descriptionTextNode);
+                rootElement.appendChild(descriptionElement);
+
+                Transformer transformer = TransformerFactory.newInstance().newTransformer();
+
+                Source xmlSource = new DOMSource(xmlDocument);
+                Result xmlResult = new StreamResult(new File("Book.xml"));
+
+                transformer.transform(xmlSource, xmlResult);
+
+                AlertUtils.Information("XML file created", "File book.xml was generated");
+
+                String command = "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe " +
+                        "\"C:\\Users\\Korisnik\\Desktop\\Java2_aplikacija\\book.xml\"";
+                showDocumentationInChromeBrowser(command);
+
+                clearFields();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        } else{
+            AlertUtils.Information("Empty data", "Please fill the text fields!");
+        }
+    }
+
+    private void clearFields() {
+        tfAuthor.clear();
+        tfDescription.clear();
+        tfTitle.clear();
+        tfISBN.clear();
+    }
+
+    @FXML
+    private void loadXMLFile(){
+        try {
+            String title;
+            String author;
+            String isbn;
+            String description;
+            File file = new File("Book.xml");
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(file);
+            doc.getDocumentElement().normalize();
+            //System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
+
+            NodeList nodeList = doc.getElementsByTagName("Book");
+
+            for (int itr = 0; itr < nodeList.getLength(); itr++){
+                Node node = nodeList.item(itr);
+                //System.out.println("\nNode Name :" + node.getNodeName());
+
+                if (node.getNodeType() == Node.ELEMENT_NODE){
+                    Element eElement = (Element) node;
+                    title = eElement.getElementsByTagName("Title").item(0).getTextContent();
+                    author = eElement.getElementsByTagName("Author").item(0).getTextContent();
+                    description = eElement.getElementsByTagName("Description").item(0).getTextContent();
+                    isbn = eElement.getElementsByTagName("ISBN").item(0).getTextContent();
+
+                    tfTitle.setText(title);
+                    tfAuthor.setText(author);
+                    tfDescription.setText(description);
+                    tfISBN.setText(isbn);
+
+//                    System.out.println("Title: " + title);
+//                    System.out.println("Author: " + author);
+//                    System.out.println("Description: " + description);
+//                    System.out.println("ISBN: " + isbn);
+                }
+            }
+        } catch (Exception e){
+            AlertUtils.Error("Error occurred!", e.toString());
         }
     }
 }

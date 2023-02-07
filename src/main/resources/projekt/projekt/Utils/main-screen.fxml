@@ -68,6 +68,8 @@
                               <TextField fx:id="tfAuthor" layoutX="32.0" layoutY="132.0" prefHeight="25.0" prefWidth="172.0" promptText="Book Author" />
                               <TextField fx:id="tfISBN" layoutX="32.0" layoutY="199.0" prefHeight="25.0" prefWidth="175.0" promptText="Book ISBN" />
                               <TextField fx:id="tfDescription" alignment="TOP_LEFT" layoutX="272.0" layoutY="74.0" prefHeight="153.0" prefWidth="267.0" promptText="Book Description" />
+                              <Button layoutX="246.0" layoutY="274.0" mnemonicParsing="false" onAction="#saveToXML" prefHeight="39.0" prefWidth="132.0" text="Save book to XML" />
+                              <Button layoutX="420.0" layoutY="274.0" mnemonicParsing="false" onAction="#loadXMLFile" prefHeight="39.0" prefWidth="132.0" text="Load last saved book" />
                            </children></AnchorPane>
                      </content>
                   </Tab>

@@ -12,11 +12,11 @@ import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.Utils.ScreenUtils;
 import projekt.projekt.clientModels.ClientModel;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -36,6 +36,7 @@ public class HelloController {
     public static final int PORT = 59001;
 
     public static String playerUsername = null;
+    public static LocalDateTime dateTime = LocalDateTime.now();
 
     public void signUp() throws Exception {
         ScreenUtils.setNewSceneToStage("Utils/sign-up.fxml", Constants.APPLICATION_NAME);
@@ -75,10 +76,9 @@ public class HelloController {
 
             System.out.println("Player 1 thread is starting");
 
-            ExecutorService executor = Executors.newSingleThreadExecutor();
+            //ExecutorService executor = Executors.newSingleThreadExecutor();
             //executor.execute(new ClientThread(new ClientModel()));
-
-            System.out.println("Player 1 thread started");
+            //System.out.println("Player 1 thread started");
 
             ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
@@ -92,31 +92,30 @@ public class HelloController {
 
             System.out.println("Player ONE port:: " + currentApplicationMetaData.getPort());
 
-            while (true) {
-                System.out.println("Waiting for data...");
-                if (ois.readObject() != null) {
-                    System.out.println("Data available!");
-                    String returnMessage = (String) ois.readObject();
-                    System.out.println(returnMessage);
-
-                    if (returnMessage.equals("Refresh")){
-                        //MainScreenUserController.refreshTable();
-                        System.out.println("Ispis");
-                    }
-                }
-                if (MainScreenUserController.isLoaned == true){
-                    oos.writeObject("Loan");
-                    MainScreenUserController.isLoaned = false;
-                }
-            }
-
-            } catch(IOException | ClassNotFoundException e){
-                e.printStackTrace();
-            }
-        }
-
-        private void ClearTextFields () {
-            tfPassword.clear();
-            tfUsername.clear();
+//            while (true) {
+//                System.out.println("Waiting for data...");
+//                if (ois.readObject() != null) {
+//                    System.out.println("Data available!");
+//                    String returnMessage = (String) ois.readObject();
+//                    System.out.println(returnMessage);
+//
+//                    if (returnMessage.equals("Refresh")) {
+//                        //MainScreenUserController.refreshTable();
+//                        System.out.println("Ispis");
+//                    }
+//                }
+//                if (MainScreenUserController.isLoaned) {
+//                    oos.writeObject("Loan");
+//                    MainScreenUserController.isLoaned = false;
+//                }
+//            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
+
+    private void ClearTextFields() {
+        tfPassword.clear();
+        tfUsername.clear();
+    }
+}
