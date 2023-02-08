@@ -23,7 +23,6 @@ import projekt.projekt.Model.RowState;
 import projekt.projekt.Model.UsersState;
 import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.Utils.ReflectionUtils;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
@@ -105,18 +104,6 @@ public class MainScreenController {
     @FXML
     private TableColumn<User, String> tcContactNumber;
 
-    //MESSAGES TAB
-    @FXML
-    private Tab tabMessages;
-
-    @FXML
-    private TextArea messageTextArea;
-    @FXML
-    private TextField messageTextField;
-    @FXML
-    private Button sendMessageButton;
-
-
     public void initialize() {
         SqlRepository sqlRepository = new SqlRepository();
 
@@ -194,7 +181,7 @@ public class MainScreenController {
             @Override
             public void handle(Event event) {
                 try {
-                    borrowedBooks = sqlRepository.getBorrowedBooks();
+                    borrowedBooks = sqlRepository.getPurchasedBooks();
 
                     tcBorrowedBookID.setCellValueFactory(new PropertyValueFactory<>(Constants.IDBOOK_COLUMN));
                     tcBorrowedTitle.setCellValueFactory(new PropertyValueFactory<>(Constants.TITLE_COLUMN));
@@ -217,8 +204,6 @@ public class MainScreenController {
     private void showInitiateTab(SqlRepository sqlRepository) {
         List<Book> books;
         try {
-
-
             books = sqlRepository.getBooks();
 
             tcIDbook.setCellValueFactory(new PropertyValueFactory<>(Constants.IDBOOK_COLUMN));
@@ -248,19 +233,13 @@ public class MainScreenController {
         List<RowState> rowStateList = new ArrayList<>();
         List<User> tableList = tvRegisteredUsers.getItems();
 
-        for(User u : tableList){
+        for (User u : tableList) {
             RowState rowState = new RowState(
-                   String.valueOf(u.getIDUser()), u.getUsername(), u.getEmail(), u.getContact()
+                    String.valueOf(u.getIDUser()), u.getUsername(), u.getEmail(), u.getContact()
             );
             rowStateList.add(rowState);
         }
-
-       /* RowState rowState = new RowState(
-                tcIDUser.getText(), tcUsername.getText(), tcEmailAddress.getText(), tcContactNumber.getText()
-        );
-        rowStateList.add(rowState);*/
         usersState.setUsersStateList(rowStateList);
-
         try (ObjectOutputStream serializator = new ObjectOutputStream(new FileOutputStream(Constants.SERIALIZATION_DOCUMENT))) {
             serializator.writeObject(usersState);
         }
@@ -272,20 +251,15 @@ public class MainScreenController {
     private void refreshUsersTableView() {
         ObservableList<User> tableList = tvRegisteredUsers.getItems();
         tableList.clear();
-        //tvRegisteredUsers.refresh();
     }
 
     public void loadBook() throws IOException, ClassNotFoundException {
         List<User> tableList = new ArrayList<>();
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(Constants.SERIALIZATION_DOCUMENT))) {
             UsersState usersState = (UsersState) ois.readObject();
-            for (RowState rowState : usersState.getUsersStateList()){
+            for (RowState rowState : usersState.getUsersStateList()) {
                 User u = new User(Integer.parseInt(rowState.getUserId()), rowState.getUsername(), rowState.getEmail(), rowState.getContact());
                 tableList.add(u);
-               /* tcIDUser.setText(rowState.getUserId());
-                tcUsername.setText(rowState.getUsername());
-                tcEmailAddress.setText(rowState.getEmail());
-                tcContactNumber.setText(rowState.getContact());*/
             }
         }
 
@@ -485,13 +459,11 @@ public class MainScreenController {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
-            //System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
 
             NodeList nodeList = doc.getElementsByTagName("Book");
 
             for (int itr = 0; itr < nodeList.getLength(); itr++) {
                 Node node = nodeList.item(itr);
-                //System.out.println("\nNode Name :" + node.getNodeName());
 
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) node;
@@ -504,11 +476,6 @@ public class MainScreenController {
                     tfAuthor.setText(author);
                     tfDescription.setText(description);
                     tfISBN.setText(isbn);
-
-//                    System.out.println("Title: " + title);
-//                    System.out.println("Author: " + author);
-//                    System.out.println("Description: " + description);
-//                    System.out.println("ISBN: " + isbn);
                 }
             }
         } catch (Exception e) {

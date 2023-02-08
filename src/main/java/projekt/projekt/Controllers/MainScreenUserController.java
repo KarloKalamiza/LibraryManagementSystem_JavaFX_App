@@ -1,10 +1,7 @@
 package projekt.projekt.Controllers;
 
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,20 +10,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import projekt.projekt.Constants.Constants;
 import projekt.projekt.Data.SQL.SqlRepository;
 import projekt.projekt.Data.models.Book;
-import projekt.projekt.Data.models.Loan;
 import projekt.projekt.HelloApplication;
 import projekt.projekt.HelloController;
 import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
-import projekt.projekt.clientModels.ClientModel;
 import projekt.projekt.rmiserver.ChatService;
 import projekt.projekt.server.Server;
 import projekt.projekt.thread.ClientThread;
-
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -37,7 +28,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainScreenUserController {
-
     @FXML
     private TableView<Book> tvBooks;
 
@@ -63,9 +53,6 @@ public class MainScreenUserController {
     private Tab tabBooks;
 
     @FXML
-    private Tab tabMyBorrowedBooks;
-
-    @FXML
     private Tab tabMostBorrowedBooks;
 
     @FXML
@@ -86,22 +73,6 @@ public class MainScreenUserController {
     @FXML
     private TableView<Book> tvMostBorrowedBooks;
 
-    //MYBORROWEDBOOKSTAB
-    @FXML
-    private TableView<Book> tvMyBorrowedBooks;
-    @FXML
-    private TableColumn<Book, Integer> tcMyBorrowedBookID;
-    @FXML
-    private TableColumn<Book, String> tcmyBorrowedBooksTitle;
-    @FXML
-    private TableColumn<Book, String> tcmyBorrowedBooksAuthor;
-    @FXML
-    private TableColumn<Book, String> tcmyBorrowedBooksISBN;
-    @FXML
-    private TableColumn<Book, String> tcmyBorrowedBooksDescription;
-    @FXML
-    private TableColumn<Book, Book> tcReturnButton;
-
     //MESSAGE TABS
     @FXML
     private Tab messagesTab;
@@ -117,16 +88,11 @@ public class MainScreenUserController {
     private SqlRepository sqlRepository = new SqlRepository();
 
     public void initialize() {
-
-
-        ShowInitiateTab(sqlRepository);
+        showInitiateTab(sqlRepository);
         showAllBooks(sqlRepository);
-        showMyBorrowedBooks(sqlRepository);
         showMostBorrowedBooks(sqlRepository);
 
         try {
-            //Registry registry = LocateRegistry.getRegistry();
-            // the very same thing
             Registry registry = LocateRegistry.getRegistry("localhost", 1099);
             new Thread(() -> refreshMessage()).start();
             stub = (ChatService) registry.lookup(ChatService.REMOTE_OBJECT_NAME);
@@ -162,67 +128,12 @@ public class MainScreenUserController {
         }
     }
 
-    private void showMyBorrowedBooks(SqlRepository sqlRepository) {
-        tabMyBorrowedBooks.setOnSelectionChanged(new EventHandler<>() {
-            List<Book> myBorrowedBooks;
-
-            @Override
-            public void handle(Event event) {
-                try {
-                    Loan loan = new Loan();
-                    //LoggedInUser user = new LoggedInUser();
-                    myBorrowedBooks = sqlRepository.getMyBorrowedBooks(loan.getUserID());
-
-                    tcMyBorrowedBookID.setCellValueFactory(new PropertyValueFactory<>(Constants.IDBOOK_COLUMN));
-                    tcmyBorrowedBooksTitle.setCellValueFactory(new PropertyValueFactory<>(Constants.TITLE_COLUMN));
-                    tcmyBorrowedBooksAuthor.setCellValueFactory(new PropertyValueFactory<>(Constants.AUTHOR_COLUMN));
-                    tcmyBorrowedBooksDescription.setCellValueFactory(new PropertyValueFactory<>(Constants.DESCRIPTION_COLUMN));
-                    tcmyBorrowedBooksISBN.setCellValueFactory(new PropertyValueFactory<>(Constants.ISBN_COLUMN));
-
-                    tcReturnButton.setCellValueFactory(col -> new ReadOnlyObjectWrapper<>(col.getValue()));
-                    tcReturnButton.setCellFactory(col -> new TableCell<Book, Book>() {
-
-                        final Button button = new Button("Return");
-
-                        @Override
-                        protected void updateItem(Book book, boolean b) {
-                            super.updateItem(book, b);
-
-                            if (book == null) {
-                                setGraphic(null);
-                                return;
-                            }
-
-                            setGraphic(button);
-                            button.setPrefWidth(50);
-                            button.setPrefHeight(50);
-                            button.setVisible(true);
-
-                            button.setOnAction(evt -> {
-                                Book item = getTableRow().getItem();
-                                try {
-                                    sqlRepository.ReturnBook(item.getIDBook(), LoggedInUser.getLoggedUser().getIDUser());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                        }
-                    });
-
-                    tvMyBorrowedBooks.setItems(FXCollections.observableArrayList(myBorrowedBooks));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
     private void showMostBorrowedBooks(SqlRepository sqlRepository) {
         tabMostBorrowedBooks.setOnSelectionChanged(event -> {
             List<Book> books;
 
             try {
-                books = sqlRepository.getMostBorrowedBooks();
+                books = sqlRepository.getMostPopularBooks();
 
                 tcMostBorrowedBookID.setCellValueFactory(new PropertyValueFactory<>(Constants.IDBOOK_COLUMN));
                 tcMostBorrowedBookTitle.setCellValueFactory(new PropertyValueFactory<>(Constants.TITLE_COLUMN));
@@ -238,13 +149,13 @@ public class MainScreenUserController {
     }
 
     private void showAllBooks(SqlRepository sqlRepository) {
-        tabBooks.setOnSelectionChanged(event -> ShowInitiateTab(sqlRepository));
+        tabBooks.setOnSelectionChanged(event -> showInitiateTab(sqlRepository));
     }
 
-    private void ShowInitiateTab(SqlRepository sqlRepository) {
+    private void showInitiateTab(SqlRepository sqlRepository) {
         List<Book> books = new ArrayList<>();
         try {
-            books = sqlRepository.getnOTBorrowedBooks();
+            books = sqlRepository.getNotPurchasedBooks();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -262,7 +173,7 @@ public class MainScreenUserController {
 
                 tcButtonLoan.setCellFactory(col -> new TableCell<Book, Book>() {
 
-                    final Button button = new Button("loan");
+                    final Button button = new Button("BUY");
 
                     @Override
                     protected void updateItem(Book book, boolean b) {
@@ -281,7 +192,7 @@ public class MainScreenUserController {
                         button.setOnAction(evt -> {
                             Book item = getTableRow().getItem();
                             try {
-                                sqlRepository.LoanBook(item.getIDBook(), LoggedInUser.getLoggedUser().getIDUser());
+                                sqlRepository.BuyBook(item.getIDBook(), LoggedInUser.getLoggedUser().getIDUser());
                                 Server.IS_LOANED = true;
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -297,7 +208,7 @@ public class MainScreenUserController {
         }
     }
 
-    public void Logout() throws IOException {
+    public void logout() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Utils/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
 
@@ -329,7 +240,7 @@ public class MainScreenUserController {
 
     public void refreshTable() {
         System.out.println("Osvjezavanje tablice u controlleru");
-        ShowInitiateTab(sqlRepository);
+        showInitiateTab(sqlRepository);
         System.out.println("Osvjezavanje zavrseno");
     }
 }

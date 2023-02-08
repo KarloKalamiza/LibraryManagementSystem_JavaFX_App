@@ -10,7 +10,6 @@ import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.Utils.ScreenUtils;
 
 public class SignupController {
-
     @FXML
     private Button btnSignUp;
     @FXML

@@ -42,24 +42,7 @@
                            </children></AnchorPane>
                   </content>
                 </Tab>
-                  <Tab fx:id="tabMyBorrowedBooks" text="My Borrowed Books">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="tvMyBorrowedBooks" prefHeight="350.0" prefWidth="600.0">
-                                <columns>
-                                  <TableColumn fx:id="tcMyBorrowedBookID" prefWidth="52.0" text="IDBook" />
-                                  <TableColumn fx:id="tcmyBorrowedBooksTitle" prefWidth="124.0" text="Title" />
-                                    <TableColumn fx:id="tcmyBorrowedBooksAuthor" prefWidth="107.0" text="Author" />
-                                    <TableColumn fx:id="tcmyBorrowedBooksISBN" prefWidth="63.0" text="ISBN" />
-                                    <TableColumn fx:id="tcmyBorrowedBooksDescription" prefWidth="131.0" text="Description" />
-                                    <TableColumn fx:id="tcReturnButton" prefWidth="131.0" />
-                                </columns>
-                              </TableView>
-                           </children></AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="tabMostBorrowedBooks" text="Most borrowed books">
+                  <Tab fx:id="tabMostBorrowedBooks" text="Popular books">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -75,7 +58,7 @@
                            </children></AnchorPane>
                      </content>
                   </Tab>
-                  <Tab fx:id="messagesTab" text="Messages">
+                  <Tab fx:id="messagesTab" text="Chat">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -101,7 +84,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#Logout" text="Logout" />
+                    <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">

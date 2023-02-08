@@ -5,20 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import projekt.projekt.Constants.Constants;
-import projekt.projekt.Controllers.MainScreenUserController;
 import projekt.projekt.Data.SQL.SqlRepository;
 import projekt.projekt.Data.models.User;
 import projekt.projekt.Model.LoggedInUser;
 import projekt.projekt.Utils.AlertUtils;
 import projekt.projekt.Utils.ScreenUtils;
-import projekt.projekt.clientModels.ClientModel;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 import java.time.LocalDateTime;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class HelloController {
     @FXML
