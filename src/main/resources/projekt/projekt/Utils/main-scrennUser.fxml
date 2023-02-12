@@ -31,12 +31,13 @@
                            <children>
                               <TableView fx:id="tvBooks" layoutY="1.0" prefHeight="347.0" prefWidth="600.0">
                                 <columns>
-                                  <TableColumn fx:id="tcIDBook" prefWidth="54.0" text="IDBook" />
-                                  <TableColumn fx:id="tcTitle" prefWidth="111.0" text="Title" />
-                                    <TableColumn fx:id="tcAuthor" prefWidth="86.0" text="Author" />
-                                    <TableColumn fx:id="tcISBN" prefWidth="75.0" text="ISBN" />
-                                    <TableColumn fx:id="tcDescription" prefWidth="196.0" text="Description" />
-                                    <TableColumn fx:id="tcButtonLoan" prefWidth="75.0" />
+                                  <TableColumn fx:id="tcIDBook" prefWidth="39.0" text="ID" />
+                                  <TableColumn fx:id="tcTitle" prefWidth="126.0" text="Title" />
+                                    <TableColumn fx:id="tcAuthor" prefWidth="108.0" text="Author" />
+                                    <TableColumn fx:id="tcISBN" prefWidth="73.0" text="ISBN" />
+                                    <TableColumn fx:id="tcDescription" prefWidth="150.0" text="Description" />
+                                    <TableColumn fx:id="tcButtonLoan" minWidth="0.0" prefWidth="0.0" />
+                                    <TableColumn fx:id="tcButtonLoan" prefWidth="150.0" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>
@@ -48,11 +49,11 @@
                            <children>
                               <TableView fx:id="tvMostBorrowedBooks" prefHeight="346.0" prefWidth="600.0">
                                 <columns>
-                                  <TableColumn fx:id="tcMostBorrowedBookID" prefWidth="75.0" text="IDBook" />
-                                  <TableColumn fx:id="tcMostBorrowedBookTitle" prefWidth="75.0" text="Title" />
-                                    <TableColumn fx:id="tcMostBorrowedBookAuthor" prefWidth="75.0" text="Author" />
-                                    <TableColumn fx:id="tcMostBorrowedBookISBN" prefWidth="75.0" text="ISBN" />
-                                    <TableColumn fx:id="tcMostBorrowedBookdDescription" prefWidth="75.0" text="Description" />
+                                  <TableColumn fx:id="tcMostBorrowedBookID" prefWidth="45.0" text="ID" />
+                                  <TableColumn fx:id="tcMostBorrowedBookTitle" prefWidth="130.0" text="Title" />
+                                    <TableColumn fx:id="tcMostBorrowedBookAuthor" prefWidth="127.0" text="Author" />
+                                    <TableColumn fx:id="tcMostBorrowedBookISBN" prefWidth="72.0" text="ISBN" />
+                                    <TableColumn fx:id="tcMostBorrowedBookdDescription" prefWidth="222.0" text="Description" />
                                 </columns>
                               </TableView>
                            </children></AnchorPane>

@@ -16,7 +16,7 @@ public class ClientThread implements Runnable {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         try (Socket clientSocket = new Socket(HelloController.HOST, HelloController.PORT)) {
             System.err.println("Client is connecting to " + clientSocket.getInetAddress() + ":" + clientSocket.getPort());
             System.out.println("Player 1 thread is starting");
@@ -51,5 +51,7 @@ public class ClientThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        notifyAll();
     }
 }

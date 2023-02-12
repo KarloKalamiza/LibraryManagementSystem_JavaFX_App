@@ -28,11 +28,11 @@
                            <children>
                               <TableView fx:id="tvBooks" prefHeight="343.0" prefWidth="600.0">
                                 <columns>
-                                  <TableColumn fx:id="tcIDbook" prefWidth="46.0" text="IDBook" />
-                                  <TableColumn fx:id="tcTitle" prefWidth="104.0" text="Title" />
-                                    <TableColumn fx:id="tcAuthor" prefWidth="103.0" text="Author" />
-                                    <TableColumn fx:id="tcISBN" text="ISBN" />
-                                    <TableColumn fx:id="tcDescription" prefWidth="193.0" text="Description" />
+                                  <TableColumn fx:id="tcIDbook" prefWidth="37.0" text="ID" />
+                                  <TableColumn fx:id="tcTitle" prefWidth="135.0" text="Title" />
+                                    <TableColumn fx:id="tcAuthor" prefWidth="121.0" text="Author" />
+                                    <TableColumn fx:id="tcISBN" prefWidth="63.0" text="ISBN" />
+                                    <TableColumn fx:id="tcDescription" prefWidth="243.0" text="Description" />
                                 </columns>
                               </TableView>
                            </children>
@@ -45,11 +45,11 @@
                            <children>
                               <TableView fx:id="tvBorrowedBooks" prefHeight="343.0" prefWidth="600.0">
                                  <columns>
-                                    <TableColumn fx:id="tcBorrowedBookID" prefWidth="46.0" text="IDBook" />
-                                    <TableColumn fx:id="tcBorrowedTitle" prefWidth="104.0" text="Title" />
-                                    <TableColumn fx:id="tcBorrowedAuthor" prefWidth="103.0" text="Author" />
-                                    <TableColumn fx:id="tcBorrowedISBN" text="ISBN" />
-                                    <TableColumn fx:id="ctBorrowedDescription" prefWidth="193.0" text="Description" />
+                                    <TableColumn fx:id="tcBorrowedBookID" prefWidth="32.0" text="ID" />
+                                    <TableColumn fx:id="tcBorrowedTitle" prefWidth="144.0" text="Title" />
+                                    <TableColumn fx:id="tcBorrowedAuthor" prefWidth="121.0" text="Author" />
+                                    <TableColumn fx:id="tcBorrowedISBN" prefWidth="73.0" text="ISBN" />
+                                    <TableColumn fx:id="ctBorrowedDescription" prefWidth="229.0" text="Description" />
                                  </columns>
                               </TableView>
                            </children>
@@ -74,10 +74,10 @@
                      <content>
                         <TableView fx:id="tvRegisteredUsers" prefHeight="200.0" prefWidth="200.0">
                           <columns>
-                            <TableColumn fx:id="tcIDUser" prefWidth="60.0" text="IDUSER" />
-                            <TableColumn fx:id="tcUsername" prefWidth="164.0" text="USERNAME" />
-                              <TableColumn fx:id="tcEmailAddress" prefWidth="192.0" text="EMAIL ADDRESS" />
-                              <TableColumn fx:id="tcContactNumber" prefWidth="182.0" text="CONTACT NUMBER" />
+                            <TableColumn fx:id="tcIDUser" prefWidth="39.0" text="ID" />
+                            <TableColumn fx:id="tcUsername" prefWidth="185.0" text="Username" />
+                              <TableColumn fx:id="tcEmailAddress" prefWidth="192.0" text="Email Address" />
+                              <TableColumn fx:id="tcContactNumber" prefWidth="182.0" text="Contact Number" />
                           </columns>
                         </TableView>
                      </content></Tab>

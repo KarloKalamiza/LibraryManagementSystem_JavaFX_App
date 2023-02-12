@@ -93,34 +93,34 @@ private TableColumn tcContactNumber<br />
 <h4>public projekt.projekt.Controllers.MainScreenController()</h4>
 <h2> List of methods: </h2>
 <h4>public void initialize()</h4>
-<h4>private void refreshUsersTableView()</h4>
-<h4>private static void showDocumentationInChromeBrowser(String arg0)</h4>
-<h4>private void showRegisteredMembers(SqlRepository arg0)</h4>
 <h4>private static boolean lambda$generateDocumentation$2(Path arg0)</h4>
 <h4>private void lambda$showAllBooks$1(SqlRepository arg0, Event arg1)</h4>
-<h4>public void generateDocumentation()</h4>
 <h4>private void lambda$showAddBookTab$0(SqlRepository arg0, Event arg1)</h4>
-<h4>private boolean formValid()</h4>
-<h4>private void clearForm()</h4>
-<h4>private void clearFields()</h4>
-<h4>public void saveToXML(ActionEvent arg0)</h4>
-<h4>public void Logout()</h4>
-<h4>public void saveBook()</h4>
-<h4>public void loadBook()</h4>
-<h4>private void loadXMLFile()</h4>
-<h4>private void showInitiateTab(SqlRepository arg0)</h4>
-<h4>private void showAllBooks(SqlRepository arg0)</h4>
+<h4>private static void showDocumentationInChromeBrowser(String arg0)</h4>
+<h4>private void refreshUsersTableView()</h4>
+<h4>public void generateDocumentation()</h4>
 <h4>private void showBorrowedBooks(SqlRepository arg0)</h4>
+<h4>private void showAllBooks(SqlRepository arg0)</h4>
+<h4>private void showInitiateTab(SqlRepository arg0)</h4>
 <h4>private void showAddBookTab(SqlRepository arg0)</h4>
+<h4>private boolean formValid()</h4>
+<h4>public void Logout()</h4>
+<h4>private void clearFields()</h4>
+<h4>public void saveBook()</h4>
+<h4>private void clearForm()</h4>
+<h4>public void loadBook()</h4>
+<h4>public void saveToXML(ActionEvent arg0)</h4>
+<h4>private void loadXMLFile()</h4>
+<h4>private void showRegisteredMembers(SqlRepository arg0)</h4>
 <h2></h2>
 <h3> List of member variables: </h2>
 final Button button<br />
 final SqlRepository val$sqlRepository<br />
 <h3> List of constructors: </h2>
 <h2> List of methods: </h2>
-<h4>private void lambda$updateItem$0(SqlRepository arg0, ActionEvent arg1)</h4>
-<h4>protected void updateItem(Book arg0, boolean arg1)</h4>
 <h4>protected void updateItem(Object arg0, boolean arg1)</h4>
+<h4>protected void updateItem(Book arg0, boolean arg1)</h4>
+<h4>private void lambda$updateItem$0(SqlRepository arg0, ActionEvent arg1)</h4>
 <h2>MainScreenUserController</h2>
 <h3> List of member variables: </h2>
 private TableView tvBooks<br />
@@ -148,20 +148,20 @@ private SqlRepository sqlRepository<br />
 <h4>public projekt.projekt.Controllers.MainScreenUserController()</h4>
 <h2> List of methods: </h2>
 <h4>public void initialize()</h4>
+<h4>private void showAllBooks(SqlRepository arg0)</h4>
+<h4>private void showInitiateTab(SqlRepository arg0)</h4>
+<h4>public void refreshTable()</h4>
+<h4>public void refreshMessage()</h4>
+<h4>public void sendMessage()</h4>
 <h4>public void logout()</h4>
 <h4>private void showMostBorrowedBooks(SqlRepository arg0)</h4>
-<h4>private void fillTextAreaWithMessages()</h4>
-<h4>public void refreshMessage()</h4>
-<h4>public void refreshTable()</h4>
-<h4>public void sendMessage()</h4>
-<h4>private static ObservableValue lambda$showInitiateTab$4(CellDataFeatures arg0)</h4>
-<h4>private TableCell lambda$showInitiateTab$5(SqlRepository arg0, TableColumn arg1)</h4>
-<h4>private void lambda$showMostBorrowedBooks$2(SqlRepository arg0, Event arg1)</h4>
 <h4>private void lambda$initialize$0()</h4>
+<h4>private void fillTextAreaWithMessages()</h4>
+<h4>private TableCell lambda$showInitiateTab$5(SqlRepository arg0, TableColumn arg1)</h4>
+<h4>private static ObservableValue lambda$showInitiateTab$4(CellDataFeatures arg0)</h4>
 <h4>private void lambda$showAllBooks$3(SqlRepository arg0, Event arg1)</h4>
+<h4>private void lambda$showMostBorrowedBooks$2(SqlRepository arg0, Event arg1)</h4>
 <h4>private static void lambda$fillTextAreaWithMessages$1(StringBuilder arg0, String arg1)</h4>
-<h4>private void showInitiateTab(SqlRepository arg0)</h4>
-<h4>private void showAllBooks(SqlRepository arg0)</h4>
 <h2>SignupController</h2>
 <h3> List of member variables: </h2>
 private Button btnSignUp<br />
@@ -190,15 +190,15 @@ private Boolean isLoaned<br />
 <h4>public String getISBN()</h4>
 <h4>public String getAuthor()</h4>
 <h4>public void setDescription(String arg0)</h4>
-<h4>public void setTitle(String arg0)</h4>
+<h4>public int getIDBook()</h4>
 <h4>public void setLoaned(Boolean arg0)</h4>
 <h4>public void setISBN(String arg0)</h4>
 <h4>public Boolean getLoaned()</h4>
+<h4>public void setAuthor(String arg0)</h4>
+<h4>public void setIDBook(int arg0)</h4>
+<h4>public void setTitle(String arg0)</h4>
 <h4>public String getDescription()</h4>
 <h4>public String getTitle()</h4>
-<h4>public void setIDBook(int arg0)</h4>
-<h4>public int getIDBook()</h4>
-<h4>public void setAuthor(String arg0)</h4>
 <h2>Loan</h2>
 <h3> List of member variables: </h2>
 private int IDLoan<br />
@@ -225,35 +225,29 @@ private String Contact<br />
 <h4>public projekt.projekt.Data.models.User(int arg0, String arg1, String arg2, String arg3, String arg4)</h4>
 <h4>public projekt.projekt.Data.models.User()</h4>
 <h2> List of methods: </h2>
+<h4>public String getPassword()</h4>
 <h4>public void setPassword(String arg0)</h4>
-<h4>public int getIDUser()</h4>
-<h4>public String getContact()</h4>
 <h4>public String getEmail()</h4>
+<h4>public String getContact()</h4>
+<h4>public int getIDUser()</h4>
 <h4>public String getUsername()</h4>
-<h4>public void setIDUser(int arg0)</h4>
-<h4>public void setContact(String arg0)</h4>
 <h4>public void setUsername(String arg0)</h4>
 <h4>public void setEmail(String arg0)</h4>
-<h4>public String getPassword()</h4>
+<h4>public void setContact(String arg0)</h4>
+<h4>public void setIDUser(int arg0)</h4>
 <h2>Repository</h2>
 <h3> List of member variables: </h2>
 <h3> List of constructors: </h2>
 <h2> List of methods: </h2>
 <h4>public void createBook(Book arg0)</h4>
-<h4>public void LoanBook(int arg0, int arg1)</h4>
-<h4>public List getUsers()</h4>
-<h4>public List getBorrowedBooks()</h4>
+<h4>public void BuyBook(int arg0, int arg1)</h4>
 <h4>public void createUser(User arg0)</h4>
-<h4>public List getMostBorrowedBooks()</h4>
-<h4>public List getnOTBorrowedBooks()</h4>
+<h4>public List getPurchasedBooks()</h4>
+<h4>public List getUsers()</h4>
+<h4>public List getMostPopularBooks()</h4>
+<h4>public List getNotPurchasedBooks()</h4>
 <h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
 <h4>public List getBooks()</h4>
-<h2>RepositoryFactory</h2>
-<h3> List of member variables: </h2>
-<h3> List of constructors: </h2>
-<h4>public projekt.projekt.Data.Repo.RepositoryFactory()</h4>
-<h2> List of methods: </h2>
-<h4>public static Repository getRepository()</h4>
 <h2>DataSourceSingleton</h2>
 <h3> List of member variables: </h2>
 private static final String SERVER_NAME<br />
@@ -278,35 +272,27 @@ public static final String USERNAME<br />
 public static final String PASSWORD<br />
 public static final String EMAIL<br />
 public static final String CONTACT<br />
-public static final String ID_LOAN<br />
 public static final String BOOK_ID<br />
 public static final String USER_ID<br />
 public static final String CREATE_BOOK<br />
-public static final String UPDATE_BOOK<br />
-public static final String DELETE_BOOK<br />
-public static final String SELECT_BOOK<br />
 public static final String SELECT_BOOKS<br />
 public static final String SELECTBORROWED_BOOKS<br />
 public static final String SELECTnotBORROWED_BOOKS<br />
 public static final String SELECTMOSTBORROWED_BOOKS<br />
-public static final String SELECTMYBORROWED_BOOKS<br />
 public static final String CREATE_USER<br />
 public static final String GET_USERS<br />
-public static final String GET_USER<br />
-public static final String DELETE_USER<br />
 public static final String GETUSERBYUSERNAMEPASSWORD<br />
 public static final String LOAN_BOOK<br />
-public static final String RETURN_BOOK<br />
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.Data.SQL.SqlRepository()</h4>
 <h2> List of methods: </h2>
 <h4>public void createBook(Book arg0)</h4>
-<h4>public void LoanBook(int arg0, int arg1)</h4>
-<h4>public List getUsers()</h4>
-<h4>public List getBorrowedBooks()</h4>
+<h4>public void BuyBook(int arg0, int arg1)</h4>
 <h4>public void createUser(User arg0)</h4>
-<h4>public List getMostBorrowedBooks()</h4>
-<h4>public List getnOTBorrowedBooks()</h4>
+<h4>public List getPurchasedBooks()</h4>
+<h4>public List getUsers()</h4>
+<h4>public List getMostPopularBooks()</h4>
+<h4>public List getNotPurchasedBooks()</h4>
 <h4>public User GetUserByUsernamePassword(String arg0, String arg1)</h4>
 <h4>public List getBooks()</h4>
 <h2>HelloApplication</h2>
@@ -331,8 +317,8 @@ public static LocalDateTime dateTime<br />
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.HelloController()</h4>
 <h2> List of methods: </h2>
-<h4>public void login()</h4>
 <h4>private void ClearTextFields()</h4>
+<h4>public void login()</h4>
 <h4>public void signUp()</h4>
 <h2>JNDIConfigurationKey</h2>
 <h3> List of member variables: </h2>
@@ -356,8 +342,8 @@ private static InitialContext context<br />
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.jndi.JNDIManager()</h4>
 <h2> List of methods: </h2>
-<h4>public static InitialContext getInitialContext()</h4>
 <h4>public static String getConfigurationParameter(JNDIConfigurationKey arg0)</h4>
+<h4>public static InitialContext getInitialContext()</h4>
 <h2>LoggedInUser</h2>
 <h3> List of member variables: </h2>
 private static User loggedUser<br />
@@ -373,13 +359,13 @@ private String ContactLoggedUser<br />
 <h2> List of methods: </h2>
 <h4>public static void setLoggedUser(User arg0)</h4>
 <h4>public static User getLoggedUser()</h4>
-<h4>public void setEmailLoggedUser(String arg0)</h4>
-<h4>public String getEmailLoggedUser()</h4>
-<h4>public int getIDLoggedUser()</h4>
 <h4>public void setContactLoggedUser(String arg0)</h4>
 <h4>public String getUsernameLoggedUser()</h4>
-<h4>public String getContactLoggedUser()</h4>
 <h4>public void setUsernameLoggedUser(String arg0)</h4>
+<h4>public String getContactLoggedUser()</h4>
+<h4>public void setEmailLoggedUser(String arg0)</h4>
+<h4>public int getIDLoggedUser()</h4>
+<h4>public String getEmailLoggedUser()</h4>
 <h2>RowState</h2>
 <h3> List of member variables: </h2>
 private String userId<br />
@@ -391,13 +377,13 @@ private String contact<br />
 <h4>public projekt.projekt.Model.RowState()</h4>
 <h2> List of methods: </h2>
 <h4>public String toString()</h4>
-<h4>public String getContact()</h4>
 <h4>public String getEmail()</h4>
-<h4>public String getUsername()</h4>
+<h4>public String getContact()</h4>
 <h4>public String getUserId()</h4>
-<h4>public void setContact(String arg0)</h4>
+<h4>public String getUsername()</h4>
 <h4>public void setUsername(String arg0)</h4>
 <h4>public void setEmail(String arg0)</h4>
+<h4>public void setContact(String arg0)</h4>
 <h4>public void setUserId(String arg0)</h4>
 <h2>UsersState</h2>
 <h3> List of member variables: </h2>
@@ -405,8 +391,8 @@ private List usersStateList<br />
 <h3> List of constructors: </h2>
 <h4>public projekt.projekt.Model.UsersState()</h4>
 <h2> List of methods: </h2>
-<h4>public void setUsersStateList(List arg0)</h4>
 <h4>public List getUsersStateList()</h4>
+<h4>public void setUsersStateList(List arg0)</h4>
 <h2>ChatService</h2>
 <h3> List of member variables: </h2>
 public static final String REMOTE_OBJECT_NAME<br />
@@ -475,6 +461,21 @@ private static List clients<br />
 <h4>public projekt.projekt.Utils.ReflectionUtils()</h4>
 <h2> List of methods: </h2>
 <h4>private static boolean isStatic(int arg0)</h4>
+<h4>private static boolean isPublic(int arg0)</h4>
+<h4>private static boolean isProtected(int arg0)</h4>
+<h4>private static boolean isFinal(int arg0)</h4>
+<h4>private static boolean isPrivate(int arg0)</h4>
+<h4>public static String retrieveModifiers(int arg0)</h4>
+<h4>public static String retreiveParameters(Parameter[] arg0)</h4>
+<h2>ScreenUtils</h2>
+<h3> List of member variables: </h2>
+<h3> List of constructors: </h2>
+<h4>public projekt.projekt.Utils.ScreenUtils()</h4>
+<h2> List of methods: </h2>
+<h4>public static void setNewSceneToStage(String arg0, String arg1)</h4>
+
+</body>
+</html>g0)</h4>
 <h4>private static boolean isPublic(int arg0)</h4>
 <h4>private static boolean isProtected(int arg0)</h4>
 <h4>private static boolean isFinal(int arg0)</h4>
